@@ -1,7 +1,6 @@
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
-
-local user_host='%{$terminfo[bold]$fg[red]%}%n%{$terminfo[bold]$fg[white]%}[at]%{$terminfo[bold]$fg[green]%}%m%{$reset_color%}'
+local user_host='%{$terminfo[bold]$fg[red]%}%n%{$terminfo[bold]$fg[yellow]%} o%{$reset_color%}─%{$terminfo[bold]$fg[yellow]%}o %{$terminfo[bold]$fg[green]%}%m%{$reset_color%}'
 
 local current_dir='[%{$terminfo[bold]$fg[blue]%}%~%{$reset_color%}]'
 local rvm_ruby=''

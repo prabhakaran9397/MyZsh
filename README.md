@@ -11,4 +11,4 @@
 
 ![Screenshot](MyZsh.png "Screenshot 1")
 
-Note: Supports Current directoty view, Git Branch view, Ruby version view.
+Note: Supports Current directoty view, Git Branch view.

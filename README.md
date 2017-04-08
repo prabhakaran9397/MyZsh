@@ -6,6 +6,7 @@ echo "PS1='╭─\[\033[01;33m\]⚡\[\033[00m\] \[\033[01;31m\]\u\[\033[00m\] \[
 ```
 
 ![BASH](2.png "Screenshot 1")
+
 Note: Supports Current directoty view.
 
 ### ZSH

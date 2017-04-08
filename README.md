@@ -1,4 +1,6 @@
-## Custom theme :]
+## Custom shell theme
+### ZSH
+
 `cd ~`
 
 `git clone https://github.com/prabhakaran9397/MyZsh.git`

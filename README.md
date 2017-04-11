@@ -7,7 +7,7 @@ echo "PS1='╭─\[\033[01;33m\]⚡\[\033[00m\] \[\033[01;31m\]\u\[\033[00m\] \[
 
 `source ~/.bashrc`
 
-![BASH](assets/2.png "Screenshot 1")
+![BASH](assets/2.png "Screenshot 2")
 
 Note: Supports Current directoty view.
 
@@ -29,8 +29,18 @@ Note: Supports Current directoty view.
  
 `gedit .zshrc`
  
+##### prabhakaran9397
+
+###### Note: Supports Current directoty view, Git Branch view.
+
 Change it to ZSH_THEME="prabhakaran9397"
 
 ![ZSH](assets/1.png "Screenshot 1")
 
-Note: Supports Current directoty view, Git Branch view.
+##### myagnoster
+
+###### Note: Supports Current directoty view, Git Branch view, was there any error, are there background jobs?, am I root.
+
+Change it to ZSH_THEME="prabhakaran9397"
+
+![ZSH](assets/3.png "Screenshot 3")

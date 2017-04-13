@@ -1,4 +1,4 @@
-## Custom shell theme
+	## Custom shell theme
 ### BASH
 
 ```
@@ -25,7 +25,7 @@ Note: Supports Current directoty view.
 
 `git clone https://github.com/prabhakaran9397/MyZsh.git`
 
-`cp ~/MyZsh/prabhakaran9397.zsh-theme ~/.oh-my-zsh/themes/`
+`cp ~/MyZsh/*.zsh-theme ~/.oh-my-zsh/themes/`
  
 `gedit .zshrc`
  
@@ -41,6 +41,6 @@ Change it to ZSH_THEME="prabhakaran9397"
 
 ###### Note: Supports Current directoty view, Git Branch view, was there any error, are there background jobs?, am I root.
 
-Change it to ZSH_THEME="prabhakaran9397"
+Change it to ZSH_THEME="myagnoster"
 
 ![ZSH](assets/3.png "Screenshot 3")

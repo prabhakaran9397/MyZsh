@@ -10,6 +10,7 @@ PLUSMINUS="\u00b1"
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
 CROSS="\u2718"
+TICK="\u2714"
 LIGHTNING="\u26a1"
 GEAR="\u2699"
 
@@ -37,7 +38,7 @@ prompt_end() {
     print -n "%{%k%}"
   fi
   print -n "%{%f%}"
-  print "\n╰─o"
+  print "\n╰─➤"
   CURRENT_BG=''
 }
 
@@ -84,14 +85,14 @@ prompt_dir() {
 # - am I root
 # - are there background jobs?
 prompt_status() {
-  print -n "╭"
+  print -n "╭%{%F{black}%}\ue0b2"
   local symbols
   symbols=()
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$CROSS"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING"
+  [[ $RETVAL -eq 0 ]] && symbols+="%{%F{green}%}$TICK"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
 
-  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
+  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default "$symbols"
 }
 
 ## Main prompt

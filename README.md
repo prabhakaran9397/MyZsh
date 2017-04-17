@@ -39,7 +39,7 @@ Change it to ZSH_THEME="prabhakaran9397"
 
 ##### myagnoster
 
-###### Note: Supports Current directoty view, Git Branch view, was there any error, are there background jobs?, am I root.
+###### Note: Supports Current directoty view, Git Branch view, was there any error, are there background jobs?, am I root, Data used.
 
 Change it to ZSH_THEME="myagnoster"
 

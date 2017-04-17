@@ -95,12 +95,19 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default "$symbols"
 }
 
+prompt_data() {
+	RX=$(ifconfig wlan0 | grep -oE "\([A-Z0-9 .]+\)" | sed 's/[()]//g' | head -n 1)
+	TX=$(ifconfig wlan0 | grep -oE "\([A-Z0-9 .]+\)" | sed 's/[()]//g' | tail -n 1)
+  	prompt_segment red $PRIMARY_FG "%{%F{yellow}%} $RX↓ %{%F{purple}%}$TX↑"
+}
+
 ## Main prompt
 prompt_agnoster_main() {
   RETVAL=$?
   CURRENT_BG='NONE'
   prompt_status
   prompt_context
+  prompt_data
   prompt_dir
   prompt_git
   prompt_end

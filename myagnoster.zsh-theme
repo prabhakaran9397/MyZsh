@@ -96,9 +96,7 @@ prompt_status() {
 }
 
 prompt_data() {
-	RX=$(ifconfig wlan0 | grep -oE "\([A-Z0-9 .]+\)" | sed 's/[()]//g' | head -n 1)
-	TX=$(ifconfig wlan0 | grep -oE "\([A-Z0-9 .]+\)" | sed 's/[()]//g' | tail -n 1)
-  	prompt_segment red $PRIMARY_FG "%{%F{yellow}%} $RX↓ %{%F{purple}%}$TX↑"
+  	prompt_segment cyan $PRIMARY_FG "%{%F{black}%} $(data_usage) "
 }
 
 ## Main prompt

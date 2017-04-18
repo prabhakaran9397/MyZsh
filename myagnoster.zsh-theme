@@ -1,7 +1,4 @@
-### Segment drawing
-# A few utility functions to make it easy and re-usable to draw segmented prompts
-
-CURRENT_BG='NONE'
+CURRENT_BG=''
 PRIMARY_FG=black
 
 # Characters
@@ -11,12 +8,8 @@ BRANCH="\ue0a0"
 DETACHED="\u27a6"
 CROSS="\u2718"
 TICK="\u2714"
-LIGHTNING="\u26a1"
 GEAR="\u2699"
 
-# Begin a segment
-# Takes two arguments, background and foreground. Both can be omitted,
-# rendering default background/foreground.
 prompt_segment() {
   local bg fg
   [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
@@ -30,27 +23,28 @@ prompt_segment() {
   [[ -n $3 ]] && print -n $3
 }
 
-# End the prompt, closing any open segments
-prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    print -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
-  else
-    print -n "%{%k%}"
-  fi
-  print -n "%{%f%}"
-  print "\n╰─➤"
-  CURRENT_BG=''
+prompt_status() {
+  local symbols
+  symbols=" "
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$CROSS "
+  [[ $RETVAL -eq 0 ]] && symbols+="%{%F{green}%}$TICK "
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR "
+
+  [[ -n "$symbols" ]] && prompt_segment black $PRIMARY_FG "%{%F{grey}%}╭$symbols"
 }
 
-### Prompt components
-# Each component will draw itself, and hide itself if no information needs to be shown
-
-# Context: user@hostname (who am I and where am I)
 prompt_context() {
-  prompt_segment $PRIMARY_FG default "%{%F{grey}%} `whoami` %{%F{yellow}%}⚡ %{%F{green}%}`uname -n`"
+  prompt_segment cyan $PRIMARY_FG " `whoami`@`uname -n`"
 }
 
-# Git: branch/detached head, dirty status
+prompt_data() {
+  	prompt_segment magenta $PRIMARY_FG "%{%F{black}%} $(datausage) "
+}
+
+prompt_dir() {
+  prompt_segment blue $PRIMARY_FG ' %~ '
+}
+
 prompt_git() {
   local color ref
   is_dirty() {
@@ -75,31 +69,22 @@ prompt_git() {
   fi
 }
 
-# Dir: current working directory
-prompt_dir() {
-  prompt_segment blue $PRIMARY_FG ' %~ '
+prompt_end() {
+  if [[ -n $CURRENT_BG ]]; then
+    print -n "%{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  else
+    print -n "%{%k%}"
+  fi
+  print -n "%{%f%}"
+  symbol="$"
+  if [[ $(whoami) = "root" ]]; then
+    symbol="#"
+  fi
+  print "%{%f%}"
+  print "╰─%{%F{yellow}%}$symbol%{%F{default}%}"
+  CURRENT_BG=''
 }
 
-# Status:
-# - was there an error
-# - am I root
-# - are there background jobs?
-prompt_status() {
-  print -n "╭%{%F{black}%}\ue0b2"
-  local symbols
-  symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}$CROSS"
-  [[ $RETVAL -eq 0 ]] && symbols+="%{%F{green}%}$TICK"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR"
-
-  [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default "$symbols"
-}
-
-prompt_data() {
-  	prompt_segment cyan $PRIMARY_FG "%{%F{black}%} $(data_usage) "
-}
-
-## Main prompt
 prompt_agnoster_main() {
   RETVAL=$?
   CURRENT_BG='NONE'

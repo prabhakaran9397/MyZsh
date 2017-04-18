@@ -30,15 +30,15 @@ prompt_status() {
   [[ $RETVAL -eq 0 ]] && symbols+="%{%F{green}%}$TICK "
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR "
 
-  [[ -n "$symbols" ]] && prompt_segment black $PRIMARY_FG "%{%F{grey}%}╭$symbols"
+  [[ -n "$symbols" ]] && prompt_segment black $PRIMARY_FG "%{%F{grey}%}$symbols"
 }
 
 prompt_context() {
-  prompt_segment cyan $PRIMARY_FG " `whoami`@`uname -n`"
+  prompt_segment black $PRIMARY_FG " %{\e[1m%}%{%F{red}%}%n%{%F{yellow}%}@%{%F{green}%}%M%{\e[21m%}"
 }
 
 prompt_data() {
-  	prompt_segment magenta $PRIMARY_FG "%{%F{black}%} $(datausage) "
+  	prompt_segment cyan $PRIMARY_FG " %{%F{black}%}$(datausage) "
 }
 
 prompt_dir() {
@@ -81,7 +81,7 @@ prompt_end() {
     symbol="#"
   fi
   print "%{%f%}"
-  print "╰─%{%F{yellow}%}$symbol%{%F{default}%}"
+	print "%{\e[100m%} %{\e[93m%}$symbol%{\e[39m%} %{\e[49m%}%{\e[90m%}$SEGMENT_SEPARATOR%{\e[39m%}"
   CURRENT_BG=''
 }
 
@@ -89,8 +89,8 @@ prompt_agnoster_main() {
   RETVAL=$?
   CURRENT_BG='NONE'
   prompt_status
-  prompt_context
   prompt_data
+  prompt_context
   prompt_dir
   prompt_git
   prompt_end

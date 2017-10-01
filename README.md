@@ -1,15 +1,31 @@
-	## Custom shell theme
+## Custom shell theme
 ### BASH
 
 ```
-echo "PS1='╭─\[\033[01;33m\]⚡\[\033[00m\] \[\033[01;31m\]\u\[\033[00m\] \[\033[01;33m\]⚡\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\] [\[\033[01;34m\]\w\[\033[00m\]]\n╰─\[\033[01;33m\]⚡\[\033[00m\] '" >> ~/.bashrc
+$ echo "PS1='╭─\[\033[01;33m\]⚡\[\033[00m\] \[\033[01;31m\]\u\[\033[00m\] \[\033[01;33m\]⚡\[\033[00m\] \[\033[01;32m\]\h\[\033[00m\] [\[\033[01;34m\]\w\[\033[00m\]]\n╰─\[\033[01;33m\]⚡\[\033[00m\] '" >> ~/.bashrc
+$ source ~/.bashrc
 ```
+![BASH1](assets/bash1.png "Bash Screenshot 1")
 
-`source ~/.bashrc`
+Paste the following in [`~/.bashrc`](https://raw.githubusercontent.com/prabhakaran9397/dotfiles/master/bash/.bashrc)
+```
+PROMPT_COMMAND=my_prompt
+my_prompt() {
+    local stat=$?
+    local red='\[\033[01;31m\]'
+    local blu='\[\033[01;34m\]'
+    local gre='\[\033[01;32m\]'
+    local end='\[\033[00m\]'
+    local tty='[$(tty|cut -d/ -f4)]'
+    [ $stat = 0 ] && color=$blu || color=$red
+    local dir=$color'[\w]'$end
+    local git=$gre$(__git_ps1 '(%s)')$end
+    local sym='\$'
+    PS1="${tty}${dir}${git}${sym} "
+}
 
-![BASH](assets/2.png "Screenshot 2")
-
-Note: Supports Current directoty view.
+```
+![BASH2](assets/bash2.png "Bash Screenshot 2")
 
 ### ZSH
 
@@ -35,7 +51,7 @@ Note: Supports Current directoty view.
 
 Change it to ZSH_THEME="prabhakaran9397"
 
-![ZSH](assets/1.png "Screenshot 1")
+![ZSH1](assets/zsh1.png "ZSH Screenshot 1")
 
 ##### myagnoster
 
@@ -43,4 +59,4 @@ Change it to ZSH_THEME="prabhakaran9397"
 
 Change it to ZSH_THEME="myagnoster"
 
-![ZSH](assets/3.png "Screenshot 3")
+![ZSH2](assets/zsh2.png "ZSH Screenshot 2")
